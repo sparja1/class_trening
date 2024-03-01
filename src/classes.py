@@ -10,7 +10,6 @@ class Category:
     products: list
 
     number_of_category = 0
-    count_of_product = 0
 
     def __init__(self, name, description, products):
         """
@@ -22,9 +21,8 @@ class Category:
         self.name = name
         self.description = description
         self.products = products
-
+        self.count_of_product = len(products)
         Category.number_of_category += 1
-        Category.count_of_product += 1
 
     def get_name(self):
         """
@@ -49,9 +47,9 @@ class Category:
 
 
 class Product:
-    '''
+    """
     Класс продукты
-    '''
+    """
     name: str
     description: str
     price: float
@@ -101,16 +99,9 @@ class Product:
 
 def open_file():
     """
-
+    Функция открытия файла
     :return:
     """
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
-
-
-
-
-
-
-
