@@ -22,6 +22,7 @@ class Category:
         self.description = description
         self.products = products
         self.count_of_product = len(products)
+
         Category.number_of_category += 1
 
     def get_name(self):
