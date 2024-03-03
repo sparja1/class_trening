@@ -5,25 +5,15 @@ class Category:
     """
     Класс категории
     """
-    name: str
-    description: str
-    products: list
+    category_count = 0
+    product_count = 0
 
-    number_of_category = 0
-
-    def __init__(self, name, description, products):
-        """
-        Функция иницилизации
-        :param name:
-        :param description:
-        :param products:
-        """
+    def __init__(self, name: str, description: str, products: list = None) -> None:
         self.name = name
         self.description = description
         self.products = products
-        self.count_of_product = len(products)
-
-        Category.number_of_category += 1
+        Category.category_count += 1
+        Category.product_count += len(self.products)
 
     def get_name(self):
         """
