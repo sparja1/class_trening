@@ -25,8 +25,8 @@ def test_category_init(class_category):
         "description": "Фоновая подсветка",
         "price": 123000.0,
         "quantity": 7}
-    assert class_category.number_of_category == 1
-    assert class_category.count_of_product == 1
+    assert class_category.category_count == 1
+    assert class_category.product_count == 4
 
 
 def test_get_name(class_category):
