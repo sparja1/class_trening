@@ -8,19 +8,14 @@ def class_category():
     return Category('Телевизоры',
                     "Современный телевизор, который позволяет наслаждаться "
                     "просмотром, станет вашим другом и помощником",
-                    {
-                        "name": "55\' QLED 4K",
-                        "description": "Фоновая подсветка",
-                        "price": 123000.0,
-                        "quantity": 7
-                    })
+                    {"name": "55\' QLED 4K", "description": "Фоновая подсветка", "price": 123000.0, "quantity": 7})
 
 
 def test_category_init(class_category):
     assert class_category.name == 'Телевизоры'
     assert class_category.description == ("Современный телевизор, который позволяет наслаждаться просмотром, "
                                           "станет вашим другом и помощником")
-    assert class_category.products == {
+    assert class_category.get_products() == {
         "name": "55\' QLED 4K",
         "description": "Фоновая подсветка",
         "price": 123000.0,
@@ -54,7 +49,7 @@ def product_init():
 def test_product_init(product_init):
     assert product_init.get_name() == "55\" QLED 4K"
     assert product_init.get_description() == "Фоновая подсветка"
-    assert product_init.get_price() == 123000.0
+    assert product_init.get_price == 123000.0
     assert product_init.get_quantity() == 7
 
 
@@ -67,8 +62,36 @@ def test_product_description(product_init):
 
 
 def test_product_price(product_init):
-    assert product_init.get_price() == 123000.0
+    assert product_init.get_price == 123000.0
 
 
 def test_product_quantity(product_init):
     assert product_init.get_quantity() == 7
+
+
+@pytest.fixture
+def sample_products():
+    return [
+        {"name": "Product A", "description": "Description A", "price": 100.0, "quantity": 10},
+        {"name": "Product B", "description": "Description B", "price": 50.0, "quantity": 20}
+    ]
+
+
+def test_created_product_new_product(sample_products):
+    result = Product.created_product("Nokia", "old_phone", 75.0, 15, sample_products)
+    assert len(result) == 3
+    assert result[-1]["name"] == "Nokia"
+    assert result[-1]["price"] == 75.0
+    assert result[-1]["quantity"] == 15
+
+
+def test_created_product_existing_product(sample_products):
+    result = Product.created_product("Simens", "ol", 120.0, 5, sample_products)
+    assert len(result) == 3
+    assert result[0]["quantity"] == 10
+    assert result[0]["price"] == 100.0
+
+
+def test_created_product_invalid_price(sample_products):
+    result = Product.created_product("Product", "Description", -10.0, 5, sample_products)
+    assert len(result) == 3
