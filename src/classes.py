@@ -39,6 +39,14 @@ class Category:
         """
         return self.__products
 
+    def add_product(self, product):
+        """
+        Функция добавления нового продукта
+        :param product:
+        :return:
+        """
+        return self.__products.append(product)
+
     @property
     def get_goods(self):
         """
@@ -110,17 +118,17 @@ class Product:
         return self.quantity
 
     @classmethod
-    def created_product(cls, name, description, price, quantity, list_product):
+    def created_product(cls, name, description, price, quantity):
+        """
+        Метод добавления нового продукта
+        :param name:
+        :param description:
+        :param price:
+        :param quantity:
+        :return: Новый продукт, который можно добавить
+        """
         new_product = {"name": name, "description": description, "price": price, "quantity": quantity}
-
-        for product_add in list_product:
-            if product_add['name'] == new_product['name']:
-                product_add['quantity'] += new_product['quantity']
-                product_add['price'] = max(product_add['price'], new_product['price'])
-                return list_product
-
-        list_product.append(new_product)
-        return list_product
+        return new_product
 
 
 def open_file():
@@ -131,4 +139,5 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
+
 
