@@ -3,16 +3,15 @@ from src.classes import Category, Product
 
 
 def main():
-    list_products = []
-    product = Product
-    for i in open_file():
-        catalog = Category(i['name'], i['description'], i['products'])
-        # print(f"{catalog.get_name()}\n{catalog.get_description()}\n{catalog.get_product()}")
-        # print(catalog.vision_list_product)
-        for producto in i['products']:
-            list_products.append(producto)
-            # print(product)
-    print(product.created_product('Samsung Galaxy C23 Ultra', "black", 101_000.0, 100, list_products))
+    for cat in open_file():
+        category = Category(cat['name'], cat["description"], cat['products'])
+        #print(category.get_goods)
+        for product in cat['products']:
+            Product(product['name'], product["description"], product['price'], product['quantity'])
+
+        new_product = Product.created_product('nokia', 'dark', 10_000.0, 10)
+        print(category.add_product(new_product))
+        print(category.get_goods)
 
 
 if __name__ == "__main__":

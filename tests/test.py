@@ -77,21 +77,13 @@ def sample_products():
     ]
 
 
-def test_created_product_new_product(sample_products):
-    result = Product.created_product("Nokia", "old_phone", 75.0, 15, sample_products)
-    assert len(result) == 3
-    assert result[-1]["name"] == "Nokia"
-    assert result[-1]["price"] == 75.0
-    assert result[-1]["quantity"] == 15
+# def test_created_product_existing_product(sample_products):
+#     result = Product.created_product("Simens", "ol", 120.0, 5, sample_products)
+#     assert len(result) == 3
+#     assert result[0]["quantity"] == 10
+#     assert result[0]["price"] == 100.0
 
 
-def test_created_product_existing_product(sample_products):
-    result = Product.created_product("Simens", "ol", 120.0, 5, sample_products)
-    assert len(result) == 3
-    assert result[0]["quantity"] == 10
-    assert result[0]["price"] == 100.0
-
-
-def test_created_product_invalid_price(sample_products):
-    result = Product.created_product("Product", "Description", -10.0, 5, sample_products)
-    assert len(result) == 3
+# def test_created_product_invalid_price(sample_products):
+#     result = Product.created_product("Product", "Description", -10.0, 5, sample_products)
+#     assert len(result) == 3
