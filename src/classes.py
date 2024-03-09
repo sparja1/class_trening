@@ -15,6 +15,7 @@ class Category:
         self.name = name
         self.description = description
         self.__products = products
+
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
@@ -45,7 +46,13 @@ class Category:
         :param product:
         :return:
         """
-        return self.__products.append(product)
+
+        product_dict = {'name': product.name, 'description': product.description,
+                        'price': product.get_price, 'quantity': product.quantity}
+        if isinstance(product, Product):
+            self.__products.append(product_dict)
+
+        return self.__products
 
     @property
     def get_goods(self):
@@ -118,7 +125,7 @@ class Product:
         return self.quantity
 
     @classmethod
-    def created_product(cls, name, description, price, quantity):
+    def created_product(cls, name: str, description: str, price: float, quantity: int):
         """
         Метод добавления нового продукта
         :param name:
@@ -127,7 +134,7 @@ class Product:
         :param quantity:
         :return: Новый продукт, который можно добавить
         """
-        new_product = {"name": name, "description": description, "price": price, "quantity": quantity}
+        new_product = cls(name, description, price, quantity)
         return new_product
 
 
@@ -139,5 +146,3 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
-
-

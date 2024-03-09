@@ -10,7 +10,7 @@ def main():
             Product(product['name'], product["description"], product['price'], product['quantity'])
 
         new_product = Product.created_product('nokia', 'dark', 10_000.0, 10)
-        print(category.add_product(new_product))
+        category.add_product(new_product)
         print(category.get_goods)
 
 
