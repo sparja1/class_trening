@@ -46,12 +46,10 @@ class Category:
         :param product:
         :return:
         """
-
         product_dict = {'name': product.name, 'description': product.description,
                         'price': product.get_price, 'quantity': product.quantity}
         if isinstance(product, Product):
             self.__products.append(product_dict)
-
         return self.__products
 
     @property
@@ -60,10 +58,27 @@ class Category:
         Вернет все товары которые находятся в products
         :return:
         """
-        result = ''
-        for products in self.__products:
-            result += f"{products['name']}, {products['price']}. Остаток: {products['quantity']} шт.\n"
+        result = []
+        for product in self.__products:
+            result.append(f"{product['name']}, {product['price']} руб. Остаток: {product['quantity']} шт.")
         return result
+
+    def __str__(self):
+        """
+        Функция количества через магический метод str
+        """
+        product_count = 0
+        self.category_name = self.name
+        for i in self.__products:
+            product_count += i['quantity']
+
+        return f"{self.category_name}, количество продуктов: {product_count} шт"
+
+    def __len__(self):
+        """
+        Функция количества через магический метод len
+        """
+        return sum([product['quantity'] for product in self.__products])
 
 
 class Product:
@@ -78,10 +93,6 @@ class Product:
     def __init__(self, name: str, description: str, price: float, quantity: int):
         """
         Функция иницилизации
-        :param name:
-        :param description:
-        :param price:
-        :param quantity:
         """
         self.name = name
         self.description = description
@@ -128,14 +139,23 @@ class Product:
     def created_product(cls, name: str, description: str, price: float, quantity: int):
         """
         Метод добавления нового продукта
-        :param name:
-        :param description:
-        :param price:
-        :param quantity:
         :return: Новый продукт, который можно добавить
         """
         new_product = cls(name, description, price, quantity)
         return new_product
+
+    def __str__(self):
+        """
+        Функция количества через магический метод str
+        """
+        return f'{self.name}, {self.get_price} руб. Остаток: {self.quantity}'
+
+    def __add__(self, other):
+        """
+        Метод сложения суммы товара
+        """
+        total_amount = (self.__price * self.quantity) + (other.__price * other.quantity)
+        return total_amount
 
 
 def open_file():
