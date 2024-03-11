@@ -60,7 +60,7 @@ class Category:
         """
         result = []
         for product in self.__products:
-            result.append(f"{product['name']}, {product['price']} руб. Остаток: {product['quantity']} шт.")
+            result.append(f"{product.name}, {product.get_price} руб. Остаток: {product.quantity} шт.")
         return result
 
     def __str__(self):
