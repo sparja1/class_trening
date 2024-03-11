@@ -166,3 +166,4 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
+
