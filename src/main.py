@@ -2,18 +2,18 @@ from src.classes import open_file
 from src.classes import Category, Product
 
 
-
 def main():
     for cat in open_file():
-        category = Category(cat['name'], cat["description"], cat['products'])
-        #print(category.get_goods)
-        for product in cat['products']:
-            Product(product['name'], product["description"], product['price'], product['quantity'])
-
+        category = Category(cat['name'], cat["description"], [])
+        # print(category.get_goods)
+        for product_data in cat['products']:
+            product = Product(product_data['name'], product_data["description"],
+                              product_data['price'], product_data['quantity'])
+            category.add_product(product)
 
         new_product = Product.created_product('nokia', 'dark', 10_000.0, 10)
         category.add_product(new_product)
-        #print(category.get_goods)
+        print(category.get_goods)
         print(category)
         print(len(category))
         print(new_product)

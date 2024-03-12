@@ -46,10 +46,8 @@ class Category:
         :param product:
         :return:
         """
-        product_dict = {'name': product.name, 'description': product.description,
-                        'price': product.get_price, 'quantity': product.quantity}
         if isinstance(product, Product):
-            self.__products.append(product_dict)
+            self.__products.append(product)
         return self.__products
 
     @property
@@ -70,7 +68,7 @@ class Category:
         product_count = 0
         self.category_name = self.name
         for i in self.__products:
-            product_count += i['quantity']
+            product_count += i.quantity
 
         return f"{self.category_name}, количество продуктов: {product_count} шт"
 
@@ -78,7 +76,7 @@ class Category:
         """
         Функция количества через магический метод len
         """
-        return sum([product['quantity'] for product in self.__products])
+        return sum([product.quantity for product in self.__products])
 
 
 class Product:
@@ -166,4 +164,3 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
-
