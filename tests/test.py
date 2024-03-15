@@ -43,7 +43,7 @@ def test_get_products(class_category):
 
 @pytest.fixture
 def product_init():
-    return Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+    return Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7, 'green')
 
 
 def test_product_init(product_init):
@@ -69,21 +69,17 @@ def test_product_quantity(product_init):
     assert product_init.get_quantity() == 7
 
 
-@pytest.fixture
-def sample_products():
-    return [
-        {"name": "Product A", "description": "Description A", "price": 100.0, "quantity": 10},
-        {"name": "Product B", "description": "Description B", "price": 50.0, "quantity": 20}
-    ]
+def test__add__metod():
+    product1 = Product("Product A", "Description A", 100.0, 10, "green")
+    product2 = Product("Product A", "Description A", 300.0, 5, "black")
+    assert product1 + product2 == 2500.0
 
 
-# def test_created_product_existing_product(sample_products):
-#     result = Product.created_product("Simens", "ol", 120.0, 5, sample_products)
-#     assert len(result) == 3
-#     assert result[0]["quantity"] == 10
-#     assert result[0]["price"] == 100.0
+def test__add__metod_error():
+    product1 = Product("Product A", "Description A", 100.0, 10, "green")
+    category = Category("Product A", "Description A", [])
+    with pytest.raises(TypeError):
+        product1 + category
 
 
-# def test_created_product_invalid_price(sample_products):
-#     result = Product.created_product("Product", "Description", -10.0, 5, sample_products)
-#     assert len(result) == 3
+
