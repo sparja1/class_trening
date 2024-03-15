@@ -155,6 +155,7 @@ class Product:
         total_amount = (self.__price * self.quantity) + (other.__price * other.quantity)
         return total_amount
 
+
 class Smartphone(Product):
     performance: int
     model: str
@@ -165,6 +166,16 @@ class Smartphone(Product):
         self.performance = performance
         self.model = model
         self.memory_capacity = memory_capacity
+
+
+class LawnGrass(Product):
+    manufacturer_country: str
+    germination_period: int
+
+    def __init__(self, name, description, price, quantity, color, manufacturer_country, germination_period):
+        super().__init__(name, description, price, quantity, color)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
 
 
 def open_file():
