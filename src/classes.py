@@ -87,8 +87,8 @@ class Product:
     description: str
     price: float
     quantity: int
-
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    color: str
+    def __init__(self, name: str, description: str, price: float, quantity: int, color: str):
         """
         Функция иницилизации
         """
@@ -155,6 +155,17 @@ class Product:
         total_amount = (self.__price * self.quantity) + (other.__price * other.quantity)
         return total_amount
 
+class Smartphone(Product):
+    performance: int
+    model: str
+    memory_capacity: int
+
+    def __init__(self, name, description, price, quantity, color, performance, model, memory_capacity):
+        super().__init__(name, description, price, quantity, color)
+        self.performance = performance
+        self.model = model
+        self.memory_capacity = memory_capacity
+
 
 def open_file():
     """
@@ -164,3 +175,4 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
+
