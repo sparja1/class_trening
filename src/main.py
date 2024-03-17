@@ -31,6 +31,5 @@ def main():
     print(product2)
 
 
-
 if __name__ == "__main__":
     main()
