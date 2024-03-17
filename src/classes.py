@@ -61,6 +61,14 @@ class Category:
         return sum([product.quantity for product in self.__products])
 
 
+class MixinLog:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(f"Объект {self.__class__.__name__} был создан со следующими атрибутами:")
+        for key, value in kwargs.items():
+            print(f"{key}: {value}")
+
+
 class BaseProduct(ABC):
     @abstractmethod
     def __init__(self, name, description, price, quantity, color):
@@ -76,7 +84,7 @@ class BaseProduct(ABC):
                 f'Цена - {self.price}\n, Количество - {self.quantity}\n, Цвет - {self.color}\n')
 
 
-class Product(BaseProduct):
+class Product(MixinLog, BaseProduct):
     """ Класс продукты """
     name: str
     description: str
@@ -85,6 +93,7 @@ class Product(BaseProduct):
 
     def __init__(self, name: str, description: str, price: float, quantity: int, color: str):
         """ Функция иницилизации """
+        super().__init__(name=name, description=description, price=price, quantity=quantity, color=color)
         self.name = name
         self.description = description
         self.__price = price
@@ -135,7 +144,7 @@ class Product(BaseProduct):
             raise TypeError
 
 
-class Smartphone(Product):
+class Smartphone(Product, MixinLog):
     """ Класс смартфоон """
     performance: int
     model: str
@@ -143,7 +152,7 @@ class Smartphone(Product):
     color: str
 
     def __init__(self, name, description, price, quantity, color, performance, model, memory_capacity, ):
-        super().__init__(name, description, price, quantity, color)
+        super().__init__(name=name, description=description, price=price, quantity=quantity, color=color)
         self.performance = performance
         self.model = model
         self.memory_capacity = memory_capacity
@@ -153,13 +162,13 @@ class Smartphone(Product):
                                  f"Объем встроенной памяти: {self.memory_capacity}gb"
 
 
-class LawnGrass(Product):
+class LawnGrass(Product, MixinLog):
     """ Класс Трава газонная """
     manufacturer_country: str
     germination_period: int
 
     def __init__(self, name, description, price, quantity, color, manufacturer_country, germination_period):
-        super().__init__(name, description, price, quantity, color)
+        super().__init__(name=name, description=description, price=price, quantity=quantity, color=color)
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
 
@@ -175,3 +184,8 @@ def open_file():
         return list_operations
 
 
+product1 = Smartphone('samsung', 'aaaa', 100000.0, 100, 'black', 10000, 'galaxy', 10)
+product2 = LawnGrass('ТРАВА', 'aaa', 100.0, 1000000, 'green', 'Russia', 20)
+
+print(product1)
+print(product2)
