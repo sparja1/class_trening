@@ -182,10 +182,3 @@ def open_file():
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
-
-
-product1 = Smartphone('samsung', 'aaaa', 100000.0, 100, 'black', 10000, 'galaxy', 10)
-product2 = LawnGrass('ТРАВА', 'aaa', 100.0, 1000000, 'green', 'Russia', 20)
-
-print(product1)
-print(product2)
