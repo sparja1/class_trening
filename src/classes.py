@@ -1,4 +1,5 @@
 import json
+from abc import ABC, abstractmethod
 
 
 class Category:
@@ -60,7 +61,22 @@ class Category:
         return sum([product.quantity for product in self.__products])
 
 
-class Product:
+class BaseProduct(ABC):
+    @abstractmethod
+    def __init__(self, name, description, price, quantity, color):
+        self.name = name
+        self.description = description
+        self.price = price
+        self.quantity = quantity
+        self.color = color
+
+    @abstractmethod
+    def __str__(self):
+        return (f' Название - {self.name}\n, Описание - {self.description}\n, '
+                f'Цена - {self.price}\n, Количество - {self.quantity}\n, Цвет - {self.color}\n')
+
+
+class Product(BaseProduct):
     """ Класс продукты """
     name: str
     description: str
