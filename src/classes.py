@@ -36,7 +36,7 @@ class Category:
             if isinstance(product, Product):
 
                 if product.quantity == 0:
-                    raise ExceptionsZeroQuantity()
+                    raise ValueError(ExceptionsZeroQuantity())
 
                 self.__products.append(product)
                 print('Товар добавлен')
