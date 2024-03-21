@@ -32,12 +32,22 @@ class Category:
 
     def add_product(self, product):
         """ Функция добавления нового продукта """
+        try:
+            if isinstance(product, Product):
 
-        if isinstance(product, Product):
-            self.__products.append(product)
-            return self.__products
-        else:
-            raise TypeError("Добавлять можно только объекты Product и его наследников")
+                if product.quantity == 0:
+                    raise ExceptionsZeroQuantity()
+
+                self.__products.append(product)
+                print('Товар добавлен')
+                return self.__products
+            else:
+                raise TypeError("Добавлять можно только объекты Product и его наследников")
+
+        except ExceptionsZeroQuantity as e:
+            print(e)
+        finally:
+            print('Обработка завершена')
 
     @property
     def get_goods(self):
@@ -46,6 +56,15 @@ class Category:
         for product in self.__products:
             result.append(f"{product.name}, {product.get_price} руб. Остаток: {product.quantity} шт.")
         return result
+
+    def average_price_all_products(self):
+        """Метод подсчета средней цены товаров"""
+        total_price = sum([product.price for product in self.__products])
+        total_quantity = len(self.__products)
+        try:
+            return total_price / total_quantity
+        except ZeroDivisionError:
+            return 0
 
     def __str__(self):
         """ Функция количества через магический метод str """
@@ -137,6 +156,9 @@ class Product(MixinLog, BaseProduct):
 
     def __add__(self, other):
         """ Метод сложения суммы товара """
+        if self.quantity == 0 or other.quantity == 0:
+            raise ValueError("Нельзя добавить товар с нулевым количеством")
+
         if type(other) is type(self):
             total_amount = (self.__price * self.quantity) + (other.__price * other.quantity)
             return total_amount
@@ -177,8 +199,16 @@ class LawnGrass(Product, MixinLog):
                                    f"Cрок прорастания: {self.germination_period} дней"
 
 
+class ExceptionsZeroQuantity(Exception):
+    """Класс исключения с нулевым количеством"""
+    def __init__(self):
+        self.message = 'Товар с нулевым количеством'
+        super().__init__(self.message)
+
+
 def open_file():
     """ Функция открытия файла """
     with open('products.json', 'r', encoding="utf-8") as data:
         list_operations = json.load(data)
         return list_operations
+
