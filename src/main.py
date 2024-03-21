@@ -11,7 +11,7 @@ def main():
                               product_data['price'], product_data['quantity'], '')
             category.add_product(product)
 
-        new_product = Product.created_product('nokia', 'dark', 10_000.0, 10, "черный")
+        new_product = Product.created_product('nokia', 'dark', 10_000.0, 0, "черный")
         category.add_product(new_product)
         print(category.get_goods)
         print(category)
@@ -29,6 +29,7 @@ def main():
     product2 = LawnGrass('ТРАВА', 'aaa', 100.0, 1000000, 'green', 'Russia', 20)
     print(product1)
     print(product2)
+    print(Category.average_price_all_products)
 
 
 if __name__ == "__main__":

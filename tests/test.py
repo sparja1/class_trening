@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product
+from src.classes import Category, Product, ExceptionsZeroQuantity
 
 
 @pytest.fixture
@@ -81,5 +81,14 @@ def test__add__metod_error():
     with pytest.raises(TypeError):
         product1 + category
 
+
+def test_add_product_without_zero_quantity():
+    category = Category("Test Category", "Description", [])
+    product_non_zero_qty = Product("Product Non Zero Qty", "Description", 20.0, 5, "green")
+
+    try:
+        category.add_product(product_non_zero_qty)
+    except ExceptionsZeroQuantity:
+        pytest.fail("")
 
 
