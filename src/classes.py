@@ -32,22 +32,17 @@ class Category:
 
     def add_product(self, product):
         """ Функция добавления нового продукта """
-        try:
-            if isinstance(product, Product):
 
-                if product.quantity == 0:
-                    raise ValueError(ExceptionsZeroQuantity())
-
+        if isinstance(product, Product):
+            if product.quantity == 0:
+                raise ValueError('Нельзя добавить товар с нулевым количеством')
+            else:
                 self.__products.append(product)
                 print('Товар добавлен')
                 return self.__products
-            else:
-                raise TypeError("Добавлять можно только объекты Product и его наследников")
+        else:
+            raise TypeError("Добавлять можно только объекты Product и его наследников")
 
-        except ExceptionsZeroQuantity as e:
-            print(e)
-        finally:
-            print('Обработка завершена')
 
     @property
     def get_goods(self):
@@ -197,13 +192,6 @@ class LawnGrass(Product, MixinLog):
     def __str__(self):
         return super().__str__() + f"Cтрана-производитель: {self.manufacturer_country} " \
                                    f"Cрок прорастания: {self.germination_period} дней"
-
-
-class ExceptionsZeroQuantity(Exception):
-    """Класс исключения с нулевым количеством"""
-    def __init__(self):
-        self.message = 'Товар с нулевым количеством'
-        super().__init__(self.message)
 
 
 def open_file():
